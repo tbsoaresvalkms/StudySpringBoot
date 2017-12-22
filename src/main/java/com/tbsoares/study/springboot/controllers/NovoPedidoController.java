@@ -6,6 +6,7 @@ import com.tbsoares.study.springboot.models.Pedido;
 import com.tbsoares.study.springboot.models.RespostaDTO;
 import com.tbsoares.study.springboot.repositories.ClienteRepository;
 import com.tbsoares.study.springboot.repositories.ItemRepository;
+import com.tbsoares.study.springboot.services.EnviaNotificacao;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,11 +19,13 @@ import java.util.List;
 @RestController
 public class NovoPedidoController {
 
-    private ClienteRepository clienteRepository;
-    private ItemRepository itemRepository;
+    private final ClienteRepository clienteRepository;
+    private final EnviaNotificacao enviaNotificacao;
+    private final ItemRepository itemRepository;
 
-    public NovoPedidoController(ClienteRepository clienteRepository, ItemRepository itemRepository) {
+    public NovoPedidoController(ClienteRepository clienteRepository, EnviaNotificacao enviaNotificacao, ItemRepository itemRepository) {
         this.clienteRepository = clienteRepository;
+        this.enviaNotificacao = enviaNotificacao;
         this.itemRepository = itemRepository;
     }
 
@@ -46,6 +49,7 @@ public class NovoPedidoController {
             pedido.setCliente(c);
             c.getPedidos().add(pedido);
             this.clienteRepository.saveAndFlush(c);
+            enviaNotificacao.enviaEmail(c, pedido);
             List<Long> pedidosID = new ArrayList<Long>();
 
             for (Pedido p : c.getPedidos()) pedidosID.add(p.getId());
