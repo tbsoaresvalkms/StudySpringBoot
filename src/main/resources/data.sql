@@ -2,17 +2,16 @@
 -- Fernando Boaglio
 -- 2016-12
 --
-drop table propriedade IF EXISTS;
+drop table IF EXISTS propriedade;
 
 CREATE TABLE propriedade (
-id MEDIUMINT NOT NULL AUTO_INCREMENT,
+id serial NOT NULL,
 categoria VARCHAR(200),
 subcategoria VARCHAR(200),
 nome VARCHAR(200),
 valor VARCHAR(512) default '',
 descricao VARCHAR(1000),
-PRIMARY KEY (id),
-UNIQUE INDEX nome_unique (nome ASC));
+PRIMARY KEY (id));
 
 
 -- ----------------------------------------

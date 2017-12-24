@@ -40,3 +40,14 @@ systemctl status name.service
 ```
 mvn spring-boot:run -Drun.arguments="--spring.profiles.active=production"
 ```
+
+```
+docker container run 
+    --name springboot-postgres 
+    -e POSTGRES_PASSWORD=password8 
+    -e POSTGRES_USER=userspringboot 
+    -e POSTGRES_DB=springbootdb 
+    -p 8079:5432 
+    -d
+    postgres
+```
