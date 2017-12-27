@@ -4,6 +4,8 @@ mvn install
 
 java -jar target/green-dog-delivery-1.0.0-SNAPSHOT.jar
 
+mvn -DskipTests clean package docker:build
+
 ```
 <plugin>
 <groupId>org.springframework.boot</groupId>
@@ -42,12 +44,5 @@ mvn spring-boot:run -Drun.arguments="--spring.profiles.active=production"
 ```
 
 ```
-docker container run 
-    --name springboot-postgres 
-    -e POSTGRES_PASSWORD=password8 
-    -e POSTGRES_USER=userspringboot 
-    -e POSTGRES_DB=springbootdb 
-    -p 8079:5432 
-    -d
-    postgres
+docker container run  --name springboot-postgres -e POSTGRES_PASSWORD=password8 -e POSTGRES_USER=userspringboot -e POSTGRES_DB=springbootdb -p 8079:5432 -d postgres
 ```

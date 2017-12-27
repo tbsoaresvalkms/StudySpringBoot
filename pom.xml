@@ -127,33 +127,10 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <finalName>studyspringboot</finalName>
                     <executable>true</executable>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.13</version>
-                <configuration>
-                    <imageName>greendogdelivery</imageName>
-                    <baseImage>frolvlad/alpine-oraclejdk8:slim</baseImage>
-                    <entryPoint>["java", "-jar",
-                        "/${project.build.finalName}.jar"]
-                    </entryPoint>
-                    <exposes>8080</exposes>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 </project>
-
-        <!-- mvn -DskipTests clean package docker:build -->
-        <!-- docker run -p 8080:8080 greendogdelivery:latest -->
-        <!-- docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer -->

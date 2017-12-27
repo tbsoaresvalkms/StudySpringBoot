@@ -1,0 +1,22 @@
+version: '2.0'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: springbootdb
+      POSTGRES_USER: userspringboot
+      POSTGRES_PASSWORD: password8
+  app:
+    build: .
+    environment:
+      SPRING_DATASOURCE_USERNAME: userspringboot
+      SPRING_DATASOURCE_PASSWORD: password8
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/springbootdb
+      SERVER_PORT: 8002
+    ports:
+      - "8081:8002"
+    depends_on:
+      - postgres
+    links:
+      - postgres
+
